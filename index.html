@@ -1,9 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My First CI/CD Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Front Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #001122, #003366); /* Navy blue gradient */
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Subtle starfield background for a cosmic, cloud-computing feel */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.1), transparent),
+                              radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.1), transparent),
+                              radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.1), transparent),
+                              radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.1), transparent),
+                              radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.1), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: twinkle 4s ease-in-out infinite alternate;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+
+        .name {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-align: center;
+            z-index: 10;
+            color: #ffffff; /* Simple white color */
+            opacity: 0;
+            animation: fadeInSlow 3s ease-in-out 1s forwards; /* Slow fade-in after 1s delay */
+        }
+
+        @keyframes fadeInSlow {
+            to { opacity: 1; }
+        }
+
+        .message {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            text-align: center;
+            margin-top: 20px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 3s ease-in-out 2s forwards, typewriter 4s steps(40, end) 2s forwards;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #00aaff;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .floating-word {
+            position: absolute;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            animation: float 10s linear infinite;
+            z-index: 5;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* Programming words with varied paths */
+        .prog1 { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+        .prog2 { left: 20%; animation-delay: 1s; animation-duration: 10s; }
+        .prog3 { left: 30%; animation-delay: 2s; animation-duration: 14s; }
+        .prog4 { left: 40%; animation-delay: 3s; animation-duration: 11s; }
+        .prog5 { left: 50%; animation-delay: 4s; animation-duration: 13s; }
+        .prog6 { left: 60%; animation-delay: 5s; animation-duration: 9s; }
+        .prog7 { left: 70%; animation-delay: 6s; animation-duration: 15s; }
+        .prog8 { left: 80%; animation-delay: 7s; animation-duration: 10s; }
+        .prog9 { left: 90%; animation-delay: 8s; animation-duration: 12s; }
+        .prog10 { left: 15%; animation-delay: 9s; animation-duration: 11s; }
+
+        /* AWS words with a subtle bounce and different colors */
+        .aws1 { left: 5%; top: 20%; animation-delay: 0.5s; animation-duration: 8s; color: rgba(0, 170, 255, 0.6); animation-name: bounceFloat; }
+        .aws2 { left: 25%; top: 30%; animation-delay: 1.5s; animation-duration: 9s; color: rgba(0, 170, 255, 0.6); animation-name: bounceFloat; }
+        .aws3 { left: 45%; top: 40%; animation-delay: 2.5s; animation-duration: 10s; color: rgba(0, 170, 255, 0.6); animation-name: bounceFloat; }
+        .aws4 { left: 65%; top: 50%; animation-delay: 3.5s; animation-duration: 11s; color: rgba(0, 170, 255, 0.6); animation-name: bounceFloat; }
+        .aws5 { left: 85%; top: 60%; animation-delay: 4.5s; animation-duration: 12s; color: rgba(0, 170, 255, 0.6); animation-name: bounceFloat; }
+        .aws6 { left: 35%; top: 70%; animation-delay: 5.5s; animation-duration: 13s; color: rgba(0, 170, 255, 0.6); animation-name: bounceFloat; }
+        .aws7 { left: 55%; top: 80%; animation-delay: 6.5s; animation-duration: 14s; color: rgba(0, 170, 255, 0.6); animation-name: bounceFloat; }
+        .aws8 { left: 75%; top: 90%; animation-delay: 7.5s; animation-duration: 15s; color: rgba(0, 170, 255, 0.6); animation-name: bounceFloat; }
+
+        @keyframes bounceFloat {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+            20% { transform: translateY(80vh) scale(1); opacity: 1; }
+            40% { transform: translateY(60vh) scale(1.1); }
+            60% { transform: translateY(40vh) scale(1); }
+            80% { transform: translateY(20vh) scale(0.9); }
+            100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello from GitHub + Jenkins + AWS</h1>
+    <div class="name">Abdullah Bin Yousaf</div>
+    <div class="message">I have created this pipeline using AWS, Jenkins, GitHub</div>
+
+    <!-- Programming and coding words floating around -->
+    <div class="floating-word prog1">JavaScript</div>
+    <div class="floating-word prog2">Python</div>
+    <div class="floating-word prog3">HTML</div>
+    <div class="floating-word prog4">CSS</div>
+    <div class="floating-word prog5">React</div>
+    <div class="floating-word prog6">Node.js</div>
+    <div class="floating-word prog7">SQL</div>
+    <div class="floating-word prog8">Git</div>
+    <div class="floating-word prog9">Docker</div>
+    <div class="floating-word prog10">Kubernetes</div>
+
+    <!-- AWS titles and words floating in the background -->
+    <div class="floating-word aws1">EC2</div>
+    <div class="floating-word aws2">S3</div>
+    <div class="floating-word aws3">Lambda</div>
+    <div class="floating-word aws4">CloudFormation</div>
+    <div class="floating-word aws5">RDS</div>
+    <div class="floating-word aws6">VPC</div>
+    <div class="floating-word aws7">IAM</div>
+    <div class="floating-word aws8">CloudWatch</div>
 </body>
 </html>
